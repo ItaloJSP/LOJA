@@ -20,7 +20,7 @@ if (isNaN(PORT) || PORT < 0 || PORT > 65535) {
 app.options('*', cors());
 
 app.use(cors({
-  origin: 'https://imperio-front-pi.vercel.app/'
+  origin: ['https://imperio-front-pi.vercel.app/']
 , // pode adicionar outros domínios aqui
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
