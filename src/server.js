@@ -8,7 +8,12 @@ const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+
+const PORT = parseInt(process.env.PORT, 10) || 3001;
+
+if (isNaN(PORT) || PORT < 0 || PORT > 65535) {
+  throw new Error("PORT variable must be integer between 0 and 65535");
+}
 
 app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(express.json());
