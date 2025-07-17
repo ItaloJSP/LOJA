@@ -5,15 +5,16 @@ const jwt = require('jsonwebtoken');
 
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
-  
-  if (!username || !password) {
-    return res.status(400).json({ message: 'Usuário e senha são obrigatórios' });
-  }
 
   const user = await User.findOne({ where: { username } });
   if (!user) return res.status(400).json({ message: 'Usuário não encontrado' });
 
-  const validPassword = await user.checkPassword(password);
+  console.log('Senha enviada:', password);
+  console.log('Hash armazenado:', user.password);
+
+  const validPassword = await bcrypt.compare(password, user.password);
+  console.log('Senha válida?', validPassword);
+
   if (!validPassword) return res.status(400).json({ message: 'Senha incorreta' });
 
   const token = jwt.sign(
