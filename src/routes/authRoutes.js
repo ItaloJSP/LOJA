@@ -5,6 +5,10 @@ const jwt = require('jsonwebtoken');
 
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
+  
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Usuário e senha são obrigatórios' });
+  }
 
   const user = await User.findOne({ where: { username } });
   if (!user) return res.status(400).json({ message: 'Usuário não encontrado' });
@@ -20,5 +24,6 @@ router.post('/login', async (req, res) => {
 
   res.json({ token });
 });
+
 
 module.exports = router;
