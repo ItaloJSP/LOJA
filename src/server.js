@@ -17,15 +17,21 @@ if (isNaN(PORT) || PORT < 0 || PORT > 65535) {
   throw new Error("PORT variable must be integer between 0 and 65535");
 }
 
-
+app.options('*', cors());
 
 app.use(cors({
-  origin: ['http://localhost:5173'], // pode adicionar outros domínios aqui
+  origin: 'https://imperio-front-pi.vercel.app/'
+, // pode adicionar outros domínios aqui
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-app.options('*', cors());
+app.get('/ping', (req, res) => {
+  res.json({ msg: 'pong' });
+});
+
+
+
 
 app.use(express.json());
 app.use(fileUpload({ useTempFiles: true }));
