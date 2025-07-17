@@ -17,7 +17,14 @@ if (isNaN(PORT) || PORT < 0 || PORT > 65535) {
   throw new Error("PORT variable must be integer between 0 and 65535");
 }
 
-app.use(cors({ origin: 'http://localhost:5173' }));
+
+
+app.use(cors({
+  origin: ['http://localhost:5173'], // pode adicionar outros domínios aqui
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
 app.use(express.json());
 app.use(fileUpload({ useTempFiles: true }));
 
