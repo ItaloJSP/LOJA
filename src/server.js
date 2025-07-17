@@ -7,6 +7,8 @@ const User = require('./models/User'); // <- necessário aqui
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 
+const bcrypt = require('bcrypt');
+
 const app = express();
 
 const PORT = parseInt(process.env.PORT, 10) || 3001;
