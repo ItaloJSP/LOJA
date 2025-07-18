@@ -10,9 +10,9 @@ const User = sequelize.define('User', {
   timestamps: false // Desativa createdAt e updatedAt
 });
 
-User.beforeCreate(async (user) => {
-  user.password = await bcrypt.hash(user.password, 10);
-});
+//User.beforeCreate(async (user) => {
+ // user.password = await bcrypt.hash(user.password, 10);
+//});
 
 User.prototype.checkPassword = function (password) {
   return bcrypt.compare(password, this.password);
