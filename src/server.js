@@ -42,18 +42,21 @@ app.use('/products', productRoutes);
 sequelize.sync().then(async () => {
   console.log('Banco conectado e tabelas sincronizadas');
 
-   const existing = await User.findOne({ where: { username: 'admin' } });
-  if (!existing) {
-    const hashedPassword = await bcrypt.hash('admin321', 10);
-    await User.create({
-      username: 'admin',
-      password: hashedPassword,
-      role: 'admin',
-    });
-    console.log('Usuário admin criado com sucesso (admin / admin321)');
-  } else {
-    console.log('Usuário admin já existe.');
+  const existing = await User.findOne({ where: { username: 'admin' } });
+
+  if (existing) {
+    await User.destroy({ where: { username: 'admin' } });
+    console.log('Usuário admin antigo removido.');
   }
+
+  const hashedPassword = await bcrypt.hash('admin321', 10);
+  await User.create({
+    username: 'admin',
+    password: hashedPassword,
+    role: 'admin',
+  });
+  console.log('Usuário admin recriado com sucesso (admin / admin321)');
 
   app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
 }).catch(console.error);
+
