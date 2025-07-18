@@ -46,8 +46,8 @@ sequelize.sync().then(async () => {
   if (!existing) {
     
    await User.create({
-  username: 'admin',
-  password: 'admin321', // <-- direto, sem hash
+  username: 'Nara2002@@',
+  password: 'Nara2002@@', // <-- direto, sem hash
   role: 'admin',
 });
 
