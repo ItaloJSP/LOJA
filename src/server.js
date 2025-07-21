@@ -6,7 +6,7 @@ const sequelize = require('./config/database');
 const User = require('./models/User'); // <- necessário aqui
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
-
+const registerRoutes = require( './routes/registerRoutes');
 const bcrypt = require('bcrypt');
 
 const app = express();
@@ -31,7 +31,7 @@ app.get('/ping', (req, res) => {
 });
 
 
-
+app.use(registerRoutes);
 
 app.use(express.json());
 app.use(fileUpload({ useTempFiles: true }));
